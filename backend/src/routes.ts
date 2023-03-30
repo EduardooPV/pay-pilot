@@ -8,6 +8,7 @@ import { RefreshTokenUserController } from "./useCases/User/refreshTokenUser/Ref
 
 import { CreateTransactionController } from "./useCases/Transaction/createTransaction/CreateTransactionController";
 import { GetTransactionUserController } from "./useCases/Transaction/getTransactionUser/GetTransactionUserController";
+import { DeleteTransactionController } from "./useCases/Transaction/deleteTransaction/DeleteTransactionController";
 
 const router = Router();
 
@@ -17,6 +18,7 @@ const refreshTokenUserController = new RefreshTokenUserController();
 
 const createTransactionController = new CreateTransactionController();
 const getTransactionsUserController = new GetTransactionUserController();
+const deleteTransactionController = new DeleteTransactionController();
 
 router.post("/user", createUserController.handle);
 router.post("/user/login", authenticateUserController.handle);
@@ -28,5 +30,6 @@ router.get(
   ensureAuthenticated,
   getTransactionsUserController.handle
 );
+router.delete("/transaction", deleteTransactionController.handle);
 
 export { router };
