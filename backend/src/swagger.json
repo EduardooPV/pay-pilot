@@ -1,0 +1,254 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Pay Pilot Documentation",
+    "description": "This is an guide to use documentation API Pay Pilot.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "eduardoveltroni@hotmail.com"
+    }
+  },
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create User",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "example@example.com",
+                  "password": "pwd@123"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User created"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Authentication User",
+        "description": "Authentication user with token jwt",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "example@example.com",
+                  "password": "pwd@123"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User authenticated"
+          }
+        }
+      }
+    },
+    "/user/refresh-token": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Refresh Token User",
+        "description": "Refresh token automatic token jwt",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "refresh_token": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "refresh_token": "79c27545-b420-46bf-8249-c9d6097b028d"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token refreshed"
+          }
+        }
+      }
+    },
+    "/transaction": {
+      "post": {
+        "tags": ["Transaction"],
+        "summary": "Create Transaction",
+        "description": "Create a new transaction in the database",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "user_id": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "title": "Trasaction test",
+                  "description": "Description test",
+                  "value": 2000,
+                  "type": "Expense",
+                  "user_id": "7ca2b4c0-f3d2-4959-9cb6-7c68f5da4fd1"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction created sucessfully"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Transaction"],
+        "summary": "Get transactions",
+        "description": "Get transactions per user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "id": "7ca2b4c0-f3d2-4959-9cb6-7c68f5da4fs1"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Get all transactions"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Transaction"],
+        "summary": "Delete transaction",
+        "description": "Delete transaction",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "id": "7ca2b4c0-f3d2-4959-9cb6-7c68f5da4fs1"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction deleted successfully"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Transaction"],
+        "summary": "Edit transaction",
+        "description": "Edit transactions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "number"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                  
+                },
+                "example": {
+                  "id": "7ca2b4c0-f3d2-4959-9cb6-7c68f5da4fs1",
+                  "title": "Trasaction test",
+                  "description": "Description test",
+                  "value": 2000,
+                  "type": "Expense"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transaction edited"
+          }
+        }
+      }
+    }
+  }
+}
