@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import Carousel from "react-native-intro-carousel";
+import { Button } from "../components/Button";
 
 export default function Intro() {
   const { navigate } = useNavigation();
@@ -53,15 +54,7 @@ export default function Intro() {
                   {item.description}
                 </Text>
               </View>
-              <TouchableOpacity
-                activeOpacity={0.7}
-                className="w-full px-[10px] py-[20px] bg-primary300 rounded-lg flex items-center justify-center"
-                onPress={() => goToSlide(index + 1)}
-              >
-                <Text className=" text-neutral-50 text-paragraph2 font-bold">
-                  Próximo
-                </Text>
-              </TouchableOpacity>
+              <Button onPress={() => goToSlide(index + 1)}>Próximo</Button>
             </View>
           ) : (
             ((
@@ -72,19 +65,16 @@ export default function Intro() {
                   </Text>
                   <Image source={item.image} className="w-full" />
                 </View>
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  className="w-full px-[10px] py-[20px] bg-primary300 rounded-lg flex items-center justify-center"
+
+                <Button
                   onPress={() =>
                     index === 3
                       ? navigate("rota" as never)
                       : goToSlide(index + 1)
                   }
                 >
-                  <Text className=" text-neutral-50 text-paragraph2 font-bold">
-                    {index === 3 ? "Finalizar" : "Próximo"}
-                  </Text>
-                </TouchableOpacity>
+                  {index === 3 ? "Finalizar" : "Próximo"}
+                </Button>
               </View>
             ) as any)
           )
