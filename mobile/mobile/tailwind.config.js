@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "#232222",
+        background: "#FAFAFA",
         primary100: "#668CFF",
         primary300: "#4977FF",
         primary500: "#245BFF",
@@ -16,6 +16,12 @@ module.exports = {
         bold: "Roboto_700Bold",
         black: "Roboto_900Black",
       },
+    },
+    fontSize: {
+      paragraph2: "16px",
+    },
+    lineHeight: {
+      paragraph2: "28px",
     },
   },
   plugins: [],
