@@ -8,6 +8,7 @@ module.exports = {
         primary100: "#668CFF",
         primary300: "#4977FF",
         primary500: "#245BFF",
+        neutral600: "#232222",
         error: "#E00000",
         success: "#3FCD1B",
       },

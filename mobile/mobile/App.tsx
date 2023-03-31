@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Routes } from "./src/routes";
+import { Loading } from "./src/components/Loading";
 
 import {
   useFonts,
@@ -16,7 +17,7 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return;
+    return <Loading />;
   }
 
   return (
