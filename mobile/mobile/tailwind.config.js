@@ -4,11 +4,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        background: "#232222",
         primary100: "#668CFF",
         primary300: "#4977FF",
         primary500: "#245BFF",
         error: "#E00000",
-        success: "#3FCD1B"
+        success: "#3FCD1B",
       },
       fontFamily: {
         regular: "Roboto_400Regular",
