@@ -19,9 +19,11 @@ module.exports = {
       },
     },
     fontSize: {
+      display2: "61.04px",
       paragraph2: "16px",
     },
     lineHeight: {
+      display2: "80px",
       paragraph2: "28px",
     },
   },

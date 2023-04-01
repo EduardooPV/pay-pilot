@@ -44,7 +44,7 @@ export default function Intro() {
           disabled: true,
           skip: { label: "Pular", textStyle: { color: "#000" } },
         }}
-        onPressSkip={() => navigate("rota" as never)}
+        onPressSkip={() => navigate("welcome" as never)}
         renderItem={({ item, index }, goToSlide) =>
           index % 2 === 0 ? (
             <View className="w-screen px-4 py-[110px] flex-1 items-center ">
@@ -69,7 +69,7 @@ export default function Intro() {
                 <Button
                   onPress={() =>
                     index === 3
-                      ? navigate("rota" as never)
+                      ? navigate("welcome" as never)
                       : goToSlide(index + 1)
                   }
                 >
