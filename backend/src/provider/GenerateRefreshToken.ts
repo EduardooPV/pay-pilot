@@ -3,7 +3,7 @@ import { prisma } from "../lib/prisma";
 
 class GenerateRefreshToken {
   async execute(userId: string) {
-    const expiresIn = dayjs().add(15, "second").unix();
+    const expiresIn = dayjs().add(1, "week").unix();
 
     const generateRefreshToken = await prisma.refreshToken.create({
       data: {

@@ -157,7 +157,12 @@ export default function SignUp() {
       <View className="w-full">
         <Text className="text-center pt-8 border-t-[1px] border-t-slate-300">
           Já possui uma conta?{" "}
-          <Text className="font-bold underline">Entrar agora!</Text>
+          <Text
+            className="font-bold underline"
+            onPress={() => navigate("signin" as never)}
+          >
+            Entrar agora!
+          </Text>
         </Text>
       </View>
     </View>
