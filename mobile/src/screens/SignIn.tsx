@@ -8,7 +8,6 @@ import * as yup from "yup";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { api } from "../lib/axios";
-import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SignIn() {

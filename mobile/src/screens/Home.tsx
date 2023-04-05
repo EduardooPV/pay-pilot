@@ -2,9 +2,35 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { api } from "../lib/axios";
+import { Loading } from "../components/Loading";
+import Welcome from "./Welcome";
 
 export default function Home() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      try {
+        const token = await AsyncStorage.getItem("token");
+
+        if (token) {
+          await refreshToken();
+          await getTransactions();
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch (err) {
+        console.log(err);
+        setIsAuthenticated(false);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuthentication();
+  }, []);
 
   async function refreshToken() {
     try {
@@ -45,25 +71,9 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    AsyncStorage.getItem("token")
-      .then((token) => {
-        if (token) {
-          setIsAuthenticated(true);
-        } else {
-          setIsAuthenticated(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsAuthenticated(false);
-      });
-
-    refreshToken();
-    getTransactions();
-  }, []);
-
-  if (isAuthenticated) {
+  if (isLoading) {
+    <Loading />;
+  } else if (isAuthenticated) {
     return (
       <View className="flex-1 w-full px-4 items-center justify-center bg-background gap-y-10 relative">
         <Text className="text-[61px] font-bold text-center text-primary300">
@@ -72,6 +82,6 @@ export default function Home() {
       </View>
     );
   } else {
-    return <Text>Não autenticado</Text>;
+    return <Welcome />;
   }
 }
