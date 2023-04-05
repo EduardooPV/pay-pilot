@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Dimensions, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { Button } from "../components/Button";
@@ -7,8 +7,6 @@ import WelcomeImage from "../assets/welcome.svg";
 
 export default function Intro() {
   const { navigate } = useNavigation();
-
-  var width = Dimensions.get("window").width;
 
   return (
     <View className="flex-1 w-full px-4 items-center justify-center bg-background gap-y-10 relative">
@@ -29,8 +27,10 @@ export default function Intro() {
       <WelcomeImage className="w-full" />
 
       <View className="w-full gap-y-[10px]">
-        <Button>Entrar</Button>
-        <Button>Cadastre-se</Button>
+        <Button onPress={() => navigate("signin" as never)}>Entrar</Button>
+        <Button onPress={() => navigate("signup" as never)}>
+          Cadastre-se
+        </Button>
       </View>
     </View>
   );
