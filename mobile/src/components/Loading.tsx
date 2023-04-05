@@ -1,9 +1,17 @@
 import { ActivityIndicator, View } from "react-native";
 
-export function Loading() {
+interface LoadingProps {
+  color?: string;
+  small?: boolean;
+}
+
+export function Loading({ color, small }: LoadingProps) {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <ActivityIndicator color="#4977FF" size="large" />
+    <View className="flex-1 items-center justify-center">
+      <ActivityIndicator
+        color={color ? color : "#4977FF"}
+        size={small ? "small" : "large"}
+      />
     </View>
   );
 }

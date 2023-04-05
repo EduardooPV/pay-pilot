@@ -19,17 +19,6 @@ module.exports = {
         black: "Roboto_900Black",
       },
     },
-    fontSize: {
-      display2: "3.815rem",
-      display1: "3.815rem",
-      paragraph2: "1rem",
-      caption: "0.8rem",
-    },
-    lineHeight: {
-      display2: "5rem",
-      paragraph2: "1.75rem",
-      caption: "1.5rem",
-    },
   },
   plugins: [],
 };

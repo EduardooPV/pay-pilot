@@ -50,7 +50,7 @@ export default function Intro() {
             <View className="w-screen px-4 py-[110px] flex-1 items-center ">
               <View className="flex-1 h-full w-full items-center justify-center gap-y-6">
                 <Image source={item.image} className="w-full" />
-                <Text className="w-full  text-justify text-paragraph2 leading-paragraph2">
+                <Text className="w-full  text-justify text-[16px]">
                   {item.description}
                 </Text>
               </View>
@@ -60,7 +60,7 @@ export default function Intro() {
             ((
               <View className="w-screen px-4 py-[110px] flex-1 items-center ">
                 <View className="flex-1 flex h-full w-full items-center justify-center gap-y-6">
-                  <Text className="w-full text-justify text-paragraph2 leading-paragraph2">
+                  <Text className="w-full text-justify text-[16px]">
                     {item.description}
                   </Text>
                   <Image source={item.image} className="w-full" />

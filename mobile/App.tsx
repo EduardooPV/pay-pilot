@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { Routes } from "./src/routes";
 import { Loading } from "./src/components/Loading";
+import { ToastProvider } from "react-native-toast-notifications";
 
 import {
   useFonts,
@@ -21,9 +22,9 @@ export default function App() {
   }
 
   return (
-    <>
+    <ToastProvider offsetTop={70}>
       <Routes />
       <StatusBar backgroundColor="transparent" translucent />
-    </>
+    </ToastProvider>
   );
 }

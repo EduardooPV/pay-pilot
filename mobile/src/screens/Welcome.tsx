@@ -11,10 +11,10 @@ export default function Intro() {
   return (
     <View className="flex-1 w-full px-4 items-center justify-center bg-background gap-y-10 relative">
       <View className="w-full items-center z-10">
-        <Text className="text-display2 leading-display2 font-bold text-center text-white">
+        <Text className="text-[61px] font-bold text-center text-white">
           Bem vindo
         </Text>
-        <Text className="text-paragraph2 leading-paragraph2 text-center text-white">
+        <Text className="text-[16px] text-center text-white">
           Faça login ou cadastre-se para continuar
         </Text>
       </View>
@@ -28,9 +28,7 @@ export default function Intro() {
 
       <View className="w-full gap-y-[10px]">
         <Button onPress={() => navigate("signin" as never)}>Entrar</Button>
-        <Button onPress={() => navigate("signup" as never)}>
-          Cadastre-se
-        </Button>
+        <Button onPress={() => navigate("signup" as never)}>Cadastre-se</Button>
       </View>
     </View>
   );
