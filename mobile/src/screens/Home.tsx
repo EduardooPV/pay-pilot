@@ -2,15 +2,13 @@ import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import Welcome from "./Welcome";
 
 import { Loading } from "../components/Loading";
-import { UserTransactions } from "../context/GetTransactionsUser";
 import { UserAuth } from "../context/UserAuth";
 
 import SettingsImage from "../assets/settings.svg";
-import Summary from "../components/Summary";
+import SummaryUser from "../components/SummaryUser";
 
 export default function Home() {
   const { isAuthenticated, isLoading } = UserAuth();
-  const { data, isFetching } = UserTransactions();
 
   if (isLoading) {
     return <Loading />;
@@ -42,7 +40,7 @@ export default function Home() {
           </TouchableOpacity>
         </View>
 
-        <Summary />
+        <SummaryUser />
       </View>
     );
   } else {

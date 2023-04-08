@@ -3,7 +3,6 @@ import { Routes } from "./src/routes";
 import { Loading } from "./src/components/Loading";
 import { ToastProvider } from "react-native-toast-notifications";
 import { UserAuthProvider } from "./src/context/UserAuth";
-import { GetTransactionsUser } from "./src/context/GetTransactionsUser";
 
 import {
   useFonts,
@@ -11,6 +10,7 @@ import {
   Roboto_700Bold,
   Roboto_900Black,
 } from "@expo-google-fonts/roboto";
+import { SummaryUser } from "./src/context/Summary";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,12 +25,12 @@ export default function App() {
 
   return (
     <UserAuthProvider>
-      <GetTransactionsUser>
+      <SummaryUser>
         <ToastProvider offsetTop={70}>
           <Routes />
           <StatusBar backgroundColor="transparent" translucent />
         </ToastProvider>
-      </GetTransactionsUser>
+      </SummaryUser>
     </UserAuthProvider>
   );
 }
