@@ -34,6 +34,8 @@ export default function SignIn() {
       await AsyncStorage.setItem("refresh_token", data.refreshToken.id);
       await AsyncStorage.setItem("token", data.token);
       await AsyncStorage.setItem("user_id", data.refreshToken.user_id);
+      await AsyncStorage.setItem("user_email", email);
+      await AsyncStorage.setItem("user_password", password);
 
       navigate("home" as never);
     } catch (error) {
@@ -61,7 +63,6 @@ export default function SignIn() {
         }}
         onSubmit={(values) => {
           loginUser(values.email, values.password);
-          "welcome" as never;
         }}
         validationSchema={yup.object().shape({
           email: yup

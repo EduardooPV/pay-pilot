@@ -8,7 +8,6 @@ import * as yup from "yup";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { api } from "../lib/axios";
-import { useEffect } from "react";
 
 export default function SignUp() {
   const toast = useToast();
@@ -21,8 +20,6 @@ export default function SignUp() {
         email,
         password,
       });
-
-      console.log(data);
 
       if (data.status) {
         toast.show("E-mail já está em uso.", {
