@@ -3,6 +3,7 @@ import { Routes } from "./src/routes";
 import { Loading } from "./src/components/Loading";
 import { ToastProvider } from "react-native-toast-notifications";
 import { UserAuthProvider } from "./src/context/UserAuth";
+import { GetTransactionsUser } from "./src/context/GetTransactionsUser";
 
 import {
   useFonts,
@@ -24,10 +25,12 @@ export default function App() {
 
   return (
     <UserAuthProvider>
-      <ToastProvider offsetTop={70}>
-        <Routes />
-        <StatusBar backgroundColor="transparent" translucent />
-      </ToastProvider>
+      <GetTransactionsUser>
+        <ToastProvider offsetTop={70}>
+          <Routes />
+          <StatusBar backgroundColor="transparent" translucent />
+        </ToastProvider>
+      </GetTransactionsUser>
     </UserAuthProvider>
   );
 }

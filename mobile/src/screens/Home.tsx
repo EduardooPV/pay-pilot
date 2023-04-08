@@ -12,23 +12,13 @@ import Welcome from "./Welcome";
 import SettingsImage from "../assets/settings.svg";
 import MoneyImage from "../assets/money.svg";
 import { UserAuth } from "../context/UserAuth";
+import { UserTransactions } from "../context/GetTransactionsUser";
 
 export default function Home() {
   const { isAuthenticated, isLoading } = UserAuth();
+  const { data, isFetching } = UserTransactions();
 
-  // FAZER UM CONTEXTO
-
-  // async function getTransactions() {
-  //   try {
-  //     const response = await api.get("/transaction");
-
-  //     console.log(response.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  // getTransactions();
+  console.log(data, isFetching);
 
   if (isLoading) {
     return <Loading />;

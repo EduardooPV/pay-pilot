@@ -41,25 +41,6 @@ export function UserAuthProvider({ children }: UserAuthContext) {
     };
 
     checkAuthentication();
-
-    // try {
-    //   const refresh_token = await AsyncStorage.getItem("refresh_token");
-
-    //   const response = await api.post("/user/refresh-token", {
-    //     refresh_token: refresh_token,
-    //   });
-
-    //   console.log(response.data);
-
-    //   if (response.data.token) {
-    //     await AsyncStorage.setItem("token", response.data.token);
-    //     // setIsAuthenticated(true);
-    //   } else {
-    //     // setIsAuthenticated(false);
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    // }
   }, []);
 
   return (
