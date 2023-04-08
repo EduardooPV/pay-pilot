@@ -19,8 +19,6 @@ export default function SignUp() {
         password,
       });
 
-      console.log(data);
-
       if (data.status === "Error") {
         toast.show("E-mail já está em uso.", {
           type: "danger",

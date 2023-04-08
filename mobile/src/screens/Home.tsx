@@ -2,8 +2,9 @@ import { View } from "react-native";
 import Welcome from "./Welcome";
 
 import { Loading } from "../components/Loading";
-import SummaryUser from "../components/Summary";
 import Header from "../components/Header";
+import SummaryUser from "../components/Summary";
+import Operations from "../components/Operations";
 
 import { UserAuth } from "../context/UserAuth";
 
@@ -18,6 +19,8 @@ export default function Home() {
         <Header />
 
         <SummaryUser />
+
+        <Operations />
       </View>
     );
   } else {

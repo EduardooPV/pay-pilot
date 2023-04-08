@@ -24,7 +24,7 @@ export default function Header() {
   }, []);
 
   return (
-    <View className="flex flex-row items-center justify-between mb-6">
+    <View className="flex flex-row items-center justify-between mb-10">
       <View
         className="flex flex-row gap-x-3 items-center
       "
