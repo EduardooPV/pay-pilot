@@ -48,29 +48,3 @@ api.interceptors.request.use(async (config) => {
 
   return config;
 });
-// api.interceptors.request.use(
-//   (response) => {
-//     console.log("ERR13232sadasdsa");
-//     return response;
-//   },
-//   (err) => {
-//     return new Promise((resolve, reject) => {
-//       const originalReq = err.config;
-//       console.log("ERR13232");
-//       if (err.response.status == 401) {
-//         console.log("ASD");
-//         originalReq._retry = true;
-//         AsyncStorage.getItem("refresh_token").then((token) => {
-//           let res = axios.put("/user/refresh-token", token).then((res) => {
-//             AsyncStorage.setItem("token", res.data.token);
-//             originalReq.headers["Authorization"] = `Bearer ${res.data.token}`;
-//             return axios(originalReq);
-//           });
-//           resolve(res);
-//         });
-//       } else {
-//         reject(err);
-//       }
-//     });
-//   }
-// );

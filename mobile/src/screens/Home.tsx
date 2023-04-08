@@ -12,8 +12,6 @@ export default function Home() {
   const { isAuthenticated, isLoading } = UserAuth();
   const { data, isFetching } = UserTransactions();
 
-  console.log(data, isFetching);
-
   if (isLoading) {
     return <Loading />;
   } else if (isAuthenticated) {
