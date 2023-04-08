@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+
 import { api } from "../lib/axios";
 
 interface SummaryUserProvider {
@@ -17,28 +18,32 @@ interface SummaryUserProps {
   total: number;
 }
 
-const SummaryUserContext = createContext<SummaryUserProps | undefined>(
-  undefined
-);
+interface SummaryUserContextProps {
+  summary: SummaryUserProps | undefined;
+  loading: boolean;
+}
+
+const SummaryUserContext = createContext<SummaryUserContextProps>({
+  summary: undefined,
+  loading: true,
+});
 
 export function SummaryUser({ children }: SummaryUserProvider) {
-  const [isFetching, setIsFetching] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [summary, setSummary] = useState<SummaryUserProps>();
 
   useEffect(() => {
     async function getSummary() {
       try {
-        setIsFetching(true);
         const response = await api.get("/transaction/summary");
 
         if (response) {
           setSummary(response.data);
-          setIsFetching(false);
         }
       } catch (error) {
         console.log(error);
       } finally {
-        setIsFetching(false);
+        setLoading(false);
       }
     }
 
@@ -46,7 +51,7 @@ export function SummaryUser({ children }: SummaryUserProvider) {
   }, []);
 
   return (
-    <SummaryUserContext.Provider value={summary}>
+    <SummaryUserContext.Provider value={{ summary, loading }}>
       {children}
     </SummaryUserContext.Provider>
   );

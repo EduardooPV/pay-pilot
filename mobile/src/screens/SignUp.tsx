@@ -1,27 +1,27 @@
 import { View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useToast } from "react-native-toast-notifications";
-
 import { Formik } from "formik";
 import * as yup from "yup";
+import { api } from "../lib/axios";
 
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
-import { api } from "../lib/axios";
 
 export default function SignUp() {
   const toast = useToast();
-
   const { navigate } = useNavigation();
 
-  const createUser = async (email: string, password: string) => {
+  async function createUser(email: string, password: string) {
     try {
       const { data } = await api.post("/user", {
         email,
         password,
       });
 
-      if (data.status) {
+      console.log(data);
+
+      if (data.status === "Error") {
         toast.show("E-mail já está em uso.", {
           type: "danger",
           placement: "top",
@@ -43,7 +43,7 @@ export default function SignUp() {
       });
       console.log(error);
     }
-  };
+  }
 
   return (
     <View className="flex-1 w-full px-4 items-center justify-center bg-background gap-y-10 relative">

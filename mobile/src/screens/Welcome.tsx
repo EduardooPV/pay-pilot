@@ -1,38 +1,44 @@
+import { useEffect, useState } from "react";
 import { View, Text, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { api } from "../lib/axios";
 
 import { Button } from "../components/Button";
+import { Loading } from "../components/Loading";
 
 import WelcomeImage from "../assets/welcome.svg";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
-import { api } from "../lib/axios";
-import { Loading } from "../components/Loading";
-
 export default function Intro() {
   const [isLoading, setIsLoading] = useState(true);
-
   const { navigate } = useNavigation();
 
   useEffect(() => {
     const automaticallyLogin = async () => {
-      const user_email = await AsyncStorage.getItem("user_email");
-      const user_password = await AsyncStorage.getItem("user_password");
+      try {
+        const user_email = await AsyncStorage.getItem("user_email");
+        const user_password = await AsyncStorage.getItem("user_password");
 
-      if (user_email && user_password) {
-        const { data } = await api.post("/user/login", {
-          email: user_email,
-          password: user_password,
-        });
-
-        if (data.token) {
-          await AsyncStorage.setItem("refresh_token", data.refreshToken.id);
-          await AsyncStorage.setItem("token", data.token);
-
-          navigate("home" as never);
+        if (!user_email && !user_password) {
+          return;
         }
-      } else {
+
+        if (user_email && user_password) {
+          const { data } = await api.post("/user/login", {
+            email: user_email,
+            password: user_password,
+          });
+
+          if (data.token) {
+            await AsyncStorage.setItem("refresh_token", data.refreshToken.id);
+            await AsyncStorage.setItem("token", data.token);
+
+            navigate("home" as never);
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
         setIsLoading(false);
       }
     };

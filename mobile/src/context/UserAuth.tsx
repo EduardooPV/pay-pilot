@@ -1,4 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import React, {
   ReactNode,
   createContext,
@@ -6,6 +6,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface UserAuthProps {
   isAuthenticated: boolean;
@@ -34,7 +36,6 @@ export function UserAuthProvider({ children }: UserAuthContext) {
         }
       } catch (err) {
         console.log(err);
-        setIsAuthenticated(false);
       } finally {
         setIsLoading(false);
       }

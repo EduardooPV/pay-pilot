@@ -1,11 +1,11 @@
-import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
+import { View } from "react-native";
 import Welcome from "./Welcome";
 
 import { Loading } from "../components/Loading";
-import { UserAuth } from "../context/UserAuth";
-
-import SummaryUser from "../components/SummaryUser";
+import SummaryUser from "../components/Summary";
 import Header from "../components/Header";
+
+import { UserAuth } from "../context/UserAuth";
 
 export default function Home() {
   const { isAuthenticated, isLoading } = UserAuth();

@@ -1,7 +1,8 @@
 import { View, Text, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
+import { useNavigation } from "@react-navigation/native";
 import Carousel from "react-native-intro-carousel";
+
 import { Button } from "../components/Button";
 
 export default function Intro() {

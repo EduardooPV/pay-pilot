@@ -4,9 +4,10 @@ import MoneyImage from "../assets/money.svg";
 import ExpensiveImage from "../assets/expensive.svg";
 import IncomeImage from "../assets/income.svg";
 import { Summary } from "../context/Summary";
+import { Loading } from "./Loading";
 
 export default function SummaryUser() {
-  const summary = Summary();
+  const { summary, loading } = Summary();
 
   function formatValue(valor: number): string {
     return valor
@@ -35,9 +36,13 @@ export default function SummaryUser() {
             <MoneyImage />
           </View>
 
-          <Text className="text-h4 leading-h4 font-bold text-white">
-            R${total}
-          </Text>
+          {loading ? (
+            <Loading color="#FFF" />
+          ) : (
+            <Text className="text-h4 leading-h4 font-bold text-white">
+              R${total}
+            </Text>
+          )}
         </View>
 
         <View className="w-full flex-row">
@@ -54,7 +59,14 @@ export default function SummaryUser() {
               </View>
 
               <Text className="text-h5 leading-h5 font-bold text-neutral500 self-start">
-                <Text className="text-paragraph2">R$</Text>{totalExpense}
+                {loading ? (
+                  <Loading />
+                ) : (
+                  <>
+                    <Text className="text-paragraph2">R$</Text>
+                    {totalExpense}
+                  </>
+                )}
               </Text>
             </View>
           </View>
@@ -72,7 +84,14 @@ export default function SummaryUser() {
               </View>
 
               <Text className="text-h5 leading-h5 font-bold text-neutral500 self-start ">
-                <Text className="text-paragraph2 mr-0">- R$</Text>{totalIncome}
+                {loading ? (
+                  <Loading />
+                ) : (
+                  <>
+                    <Text className="text-paragraph2 mr-0">- R$</Text>
+                    {totalIncome}
+                  </>
+                )}
               </Text>
             </View>
           </View>

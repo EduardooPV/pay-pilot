@@ -10,7 +10,6 @@ api.interceptors.response.use(
     return response;
   },
   async (err) => {
-    const user_id = await AsyncStorage.getItem("user_id");
     const refresh_token = await AsyncStorage.getItem("refresh_token");
 
     return new Promise(async (resolve, reject) => {

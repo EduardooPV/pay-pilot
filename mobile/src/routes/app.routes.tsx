@@ -11,8 +11,8 @@ import Home from "../screens/Home";
 export function AppRoutes() {
   return (
     <Navigator screenOptions={{ headerShown: false }}>
-      <Screen name="welcome" component={Welcome} />
       <Screen name="home" component={Home} />
+      <Screen name="welcome" component={Welcome} />
       <Screen name="signin" component={SignIn} />
       <Screen name="signup" component={SignUp} />
       <Screen name="intro" component={Intro} />
