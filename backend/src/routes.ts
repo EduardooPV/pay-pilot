@@ -10,6 +10,7 @@ import { CreateTransactionController } from "./useCases/Transaction/createTransa
 import { GetTransactionUserController } from "./useCases/Transaction/getTransactionUser/GetTransactionUserController";
 import { DeleteTransactionController } from "./useCases/Transaction/deleteTransaction/DeleteTransactionController";
 import { EditTransactionController } from "./useCases/Transaction/editTransaction/EditTransactionController";
+import { SummaryTransactionController } from "./useCases/Transaction/summaryTransactions/SummaryTransactionsController";
 
 const router = Router();
 
@@ -21,6 +22,7 @@ const createTransactionController = new CreateTransactionController();
 const getTransactionsUserController = new GetTransactionUserController();
 const deleteTransactionController = new DeleteTransactionController();
 const editTransactionsController = new EditTransactionController();
+const summaryTransactionsController = new SummaryTransactionController();
 
 router.post("/user", createUserController.handle);
 router.post("/user/login", authenticateUserController.handle);
@@ -34,5 +36,6 @@ router.get(
 );
 router.delete("/transaction", deleteTransactionController.handle);
 router.put("/transaction", editTransactionsController.handle);
+router.get("/transaction/summary", summaryTransactionsController.handle);
 
 export { router };
