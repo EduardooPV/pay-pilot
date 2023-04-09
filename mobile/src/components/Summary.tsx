@@ -5,18 +5,10 @@ import ExpensiveImage from "../assets/expensive.svg";
 import IncomeImage from "../assets/income.svg";
 import { Summary } from "../context/Summary";
 import { Loading } from "./Loading";
+import { formatValue } from "../util/formatValue";
 
 export default function SummaryUser() {
   const { summary, loading } = Summary();
-
-  function formatValue(valor: number): string {
-    return valor
-      .toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      })
-      .replace("R$", "");
-  }
 
   const total = summary ? formatValue(summary.total) : "";
   const totalExpense = summary ? formatValue(summary.totalExpense) : "";

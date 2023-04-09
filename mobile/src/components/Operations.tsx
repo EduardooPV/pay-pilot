@@ -18,7 +18,7 @@ export default function Operations() {
             className="w-full max-w-[100px] h-20 justify-center items-center p-[10px] space-y-2 bg-white rounded-lg"
             style={styles.shadow}
           >
-            <IncomeImage />
+            <IncomeImage color="#4977FF" width={35} height={35} />
           </TouchableOpacity>
           <Text className="text-caption text-center mt-3">Entrada</Text>
         </View>
@@ -29,7 +29,7 @@ export default function Operations() {
             className="w-full max-w-[100px] h-20 justify-center items-center p-[10px] space-y-2 bg-white rounded-lg"
             style={styles.shadow}
           >
-            <ExpenseImage />
+            <ExpenseImage color="#4977FF" width={35} height={35} />
           </TouchableOpacity>
           <Text className="text-caption text-center mt-3">Saída</Text>
         </View>
@@ -40,7 +40,7 @@ export default function Operations() {
             className="w-full max-w-[100px] h-20 justify-center items-center p-[10px] space-y-2 bg-white rounded-lg"
             style={styles.shadow}
           >
-            <GraphImage />
+            <GraphImage color="#4977FF" width={35} height={35} />
           </TouchableOpacity>
           <Text className="text-caption text-center mt-3">Gráficos</Text>
         </View>
