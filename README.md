@@ -143,8 +143,27 @@ _Todas as informações detalhadas [AQUI](https://www.figma.com/file/dJh51vXqLjF
 
 <h2 align="center"> Mobile </h2>
 
-**EM CONTRUÇÃO...**
+**Ferramentas e tecnlogias:**
+- [React Native](https://reactnative.dev/) criação da interface;
+- [TypeScript](https://typescript.org/) na linguagem de programção;
+- [TailwindCSS](https://tailwindcss.com/) estilização CSS;
+- [Formik](https://formik.org/) para os formulários;
+- [Yup](https://www.npmjs.com/package/yup) validação dos dados;
+- [Async Storage](https://reactnative.dev/docs/asyncstorage) gravar token localmente;
+- [Toast](https://www.npmjs.com/package/react-native-toast-notifications) modal de alertas para o usuário;
 
-## Preview
+No React Native, tivemos algumas telas, como: 
+- **Introdução**
+  - Consiste em um slide apresentando o aplicativo
+<br/>
+
+- **Welcome**
+  - Direciona o usuário a criar uma conta ou entrar em uma já existente
+<br/>
+
+- **Home**
+  - Onde fica o resumo das transações, operações para criar uma nova entrada e/ou saida, e o histórico das transações.
+
+### Preview
 
 <img src="https://github.com/EduardooPV/pay-pilot/blob/e4fe5dad794f3dce45ae077b548334eb019bf061/mobile/gif/preview.gif" />
