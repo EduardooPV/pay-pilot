@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Formik } from "formik";
+import * as yup from "yup";
 
+import { Input } from "../Input";
+import { Button } from "../Button";
 import Modal from "react-native-modal";
 
 import ExpenseImage from "../../assets/expensebutton.svg";
@@ -16,14 +20,113 @@ export default function Expense() {
         onBackdropPress={() => setModalVisible(false)}
         className="relative"
       >
-        <View className="bg-white rounded p-10 justify-center items-center">
-          <Text>Nova saída</Text>
-          <TouchableOpacity
-            className="absolute top-[16px] right-[16px]"
-            onPress={() => setModalVisible(false)}
+        <View className="bg-white rounded p-[16px] justify-center items-center">
+          <View className="relative w-full justify-center">
+            <Text className="text-h4 text-primary500 text-center">
+              Nova saída
+            </Text>
+            <TouchableOpacity
+              className="absolute top-3 right-0"
+              onPress={() => setModalVisible(false)}
+            >
+              <CloseImage />
+            </TouchableOpacity>
+          </View>
+
+          <Formik
+            initialValues={{
+              title: "",
+              value: "",
+              description: "",
+            }}
+            onSubmit={(values) => {
+              // Criar função
+              // loginUser(values.email, values.password);
+            }}
+            validationSchema={yup.object().shape({
+              title: yup
+                .string()
+                .required("Título é obrigatório")
+                .min(2, "No mínimo 4 caracteres"),
+              value: yup
+                .number()
+                .required("Valor é obrigatório")
+                .min(3, "No mínimo 3 caracteres"),
+              description: yup.string(),
+            })}
           >
-            <CloseImage />
-          </TouchableOpacity>
+            {({
+              values,
+              handleChange,
+              errors,
+              setFieldTouched,
+              touched,
+              isValid,
+              handleSubmit,
+            }) => (
+              <View className="w-full flex-col gap-y-5">
+                <View className="w-full flex-col gap-y-5">
+                  <View>
+                    <Input
+                      value={values.title}
+                      onChangeText={handleChange("title")}
+                      onBlur={() => setFieldTouched("title")}
+                      errors={errors.title}
+                      label="Título"
+                      placeholder="ex: Aluguel"
+                      type="text"
+                    />
+                    {touched.title && errors.title && (
+                      <Text className="text-[12px] ml-5 leading-[24px]  text-error">
+                        {errors.title}
+                      </Text>
+                    )}
+                  </View>
+
+                  <View>
+                    <Input
+                      value={values.value}
+                      onChangeText={handleChange("value")}
+                      onBlur={() => setFieldTouched("value")}
+                      placeholder="ex: 1.200,00 $"
+                      keyboardType="numeric"
+                      label="Valor"
+                      errors={errors.value}
+                      type="text"
+                    />
+                    {touched.value && errors.value && (
+                      <Text className="text-[12px] ml-5 leading-[24px] text-error">
+                        {errors.value}
+                      </Text>
+                    )}
+                  </View>
+
+                  <View>
+                    <Input
+                      value={values.description}
+                      onChangeText={handleChange("description")}
+                      onBlur={() => setFieldTouched("description")}
+                      placeholder="ex: Pagamento do aluguel com IPTU "
+                      label="Descrição"
+                      errors={errors.description}
+                      type="textarea"
+                    />
+                    {touched.description && errors.description && (
+                      <Text className="text-[12px] ml-5 leading-[24px] text-error">
+                        {errors.description}
+                      </Text>
+                    )}
+                  </View>
+                </View>
+
+                <View className="w-full">
+                  <Button disabled={!isValid} onPress={handleSubmit}>
+                    Nova saída
+                  </Button>
+                </View>
+              </View>
+            )}
+          </Formik>
         </View>
       </Modal>
 
@@ -36,7 +139,7 @@ export default function Expense() {
         >
           <ExpenseImage color="#4977FF" width={35} height={35} />
         </TouchableOpacity>
-        <Text className="text-caption text-center mt-3">Saída</Text>
+        <Text className="text-caption text-center mt-3">Entrada</Text>
       </View>
     </>
   );

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useToast } from "react-native-toast-notifications";
 
 import Modal from "react-native-modal";
 import { Formik } from "formik";
@@ -9,8 +10,12 @@ import { Input } from "../Input";
 
 import IncomeImage from "../../assets/incomebutton.svg";
 import CloseImage from "../../assets/close.svg";
+import { api } from "../../lib/axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Income() {
+  const toast = useToast();
+
   const [isModalVisible, setModalVisible] = useState(false);
 
   return (
@@ -39,9 +44,24 @@ export default function Income() {
               value: "",
               description: "",
             }}
-            onSubmit={(values) => {
-              // Criar função
-              // loginUser(values.email, values.password);
+            onSubmit={async (values) => {
+              const user_id = await AsyncStorage.getItem("user_id");
+
+              const response = await api.post("/transaction", {
+                title: values.title,
+                value: Number(values.value),
+                description: values.description,
+                type: "Income",
+                user_id: user_id,
+              });
+
+              if (response.status === 200) {
+                setModalVisible(false);
+                toast.show("Entrada criada com sucesso!", {
+                  type: "success",
+                  placement: "top",
+                });
+              }
             }}
             validationSchema={yup.object().shape({
               title: yup
@@ -121,7 +141,7 @@ export default function Income() {
 
                 <View className="w-full">
                   <Button disabled={!isValid} onPress={handleSubmit}>
-                    Entrar
+                    Nova entrada
                   </Button>
                 </View>
               </View>
