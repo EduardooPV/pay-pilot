@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { useToast } from "react-native-toast-notifications";
 
 import { Input } from "../Input";
 import { Button } from "../Button";
@@ -9,8 +10,12 @@ import Modal from "react-native-modal";
 
 import ExpenseImage from "../../assets/expensebutton.svg";
 import CloseImage from "../../assets/close.svg";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { api } from "../../lib/axios";
 
 export default function Expense() {
+  const toast = useToast();
+
   const [isModalVisible, setModalVisible] = useState(false);
 
   return (
@@ -39,9 +44,24 @@ export default function Expense() {
               value: "",
               description: "",
             }}
-            onSubmit={(values) => {
-              // Criar função
-              // loginUser(values.email, values.password);
+            onSubmit={async (values) => {
+              const user_id = await AsyncStorage.getItem("user_id");
+
+              const response = await api.post("/transaction", {
+                title: values.title,
+                value: Number(values.value),
+                description: values.description,
+                type: "Expense",
+                user_id: user_id,
+              });
+
+              if (response.status === 200) {
+                setModalVisible(false);
+                toast.show("Saída criada com sucesso!", {
+                  type: "success",
+                  placement: "top",
+                });
+              }
             }}
             validationSchema={yup.object().shape({
               title: yup
@@ -139,7 +159,7 @@ export default function Expense() {
         >
           <ExpenseImage color="#4977FF" width={35} height={35} />
         </TouchableOpacity>
-        <Text className="text-caption text-center mt-3">Entrada</Text>
+        <Text className="text-caption text-center mt-3">Saída</Text>
       </View>
     </>
   );
