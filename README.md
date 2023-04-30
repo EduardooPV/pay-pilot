@@ -144,3 +144,7 @@ _Todas as informações detalhadas [AQUI](https://www.figma.com/file/dJh51vXqLjF
 <h2 align="center"> Mobile </h2>
 
 **EM CONTRUÇÃO...**
+
+## Preview
+
+<img src="https://github.com/EduardooPV/pay-pilot/blob/e4fe5dad794f3dce45ae077b548334eb019bf061/mobile/gif/preview.gif" />
