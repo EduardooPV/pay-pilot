@@ -51,7 +51,7 @@ export default function Income() {
                 title: values.title,
                 value: Number(values.value),
                 description: values.description,
-                type: "Income",
+                type: "Expense",
                 user_id: user_id,
               });
 

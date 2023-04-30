@@ -23,6 +23,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [transactions, setTransactions] = useState<TransactionProps[]>([]);
 
+  
+
   useEffect(() => {
     async function getTransactions() {
       try {
