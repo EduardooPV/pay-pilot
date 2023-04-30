@@ -5,7 +5,7 @@ import Welcome from "./Welcome";
 import { Loading } from "../components/Loading";
 import Header from "../components/Header";
 import SummaryUser from "../components/Summary";
-import Operations from "../components/Operations";
+import Operations from "../components/Operations/";
 import Transaction from "../components/Transaction";
 
 import { UserAuth } from "../context/UserAuth";
@@ -28,7 +28,11 @@ export default function Home() {
       try {
         const response = await api.get("/transaction");
 
-        if (response) {
+        setTransactions(response.data);
+
+        if (response.data.token) {
+          const response = await api.get("/transaction");
+
           setTransactions(response.data);
         }
       } catch (err) {
@@ -37,7 +41,6 @@ export default function Home() {
         setLoading(false);
       }
     }
-
     getTransactions();
   }, []);
 
@@ -70,7 +73,9 @@ export default function Home() {
           style={styles.shadow}
         >
           {loading ? (
-            <Loading />
+            <View className="mt-10 bg-red-500 flex-1">
+              <Loading background="#FFF" />
+            </View>
           ) : transactions.length > 0 ? (
             transactions.map(
               (transaction) =>

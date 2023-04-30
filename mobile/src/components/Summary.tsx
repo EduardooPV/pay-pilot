@@ -29,7 +29,9 @@ export default function SummaryUser() {
           </View>
 
           {loading ? (
-            <Loading color="#FFF" />
+            <View className="flex-1 p-5">
+              <Loading color="#FFF" />
+            </View>
           ) : (
             <Text className="text-h4 leading-h4 font-bold text-white">
               R${total}

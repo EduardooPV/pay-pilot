@@ -14,7 +14,7 @@ interface InputProps {
   icon?: IconName;
   isEyePassword?: boolean;
   errors?: any;
-
+  keyboardType?: "default" | "numeric";
   value: string;
   onChangeText: (e: string | ChangeEvent<any>) => void;
   onBlur: () => void;
@@ -26,6 +26,7 @@ export function Input({
   placeholder,
   icon,
   isEyePassword,
+  keyboardType,
   errors,
   ...rest
 }: InputProps) {
@@ -40,7 +41,8 @@ export function Input({
   }
 
   return (
-    <>
+    <View>
+      {label && <Text className="pl-4 pb-2">{label}</Text>}
       <View
         className={clsx(
           "w-full flex-row items-center bg-white rounded-[10px] shadow-sm overflow-hidden shadow-[#000002]",
@@ -50,7 +52,7 @@ export function Input({
         )}
       >
         {icon && (
-          <View className="pr-[16px] pl-[16px]">
+          <View className=" pl-[16px]">
             <Feather
               name={icon}
               size={30}
@@ -59,13 +61,17 @@ export function Input({
           </View>
         )}
         <TextInput
-          className="w-full bg-white flex-1 py-[16px]"
+          className="w-full bg-white flex-1 p-4"
           placeholder={placeholder}
           placeholderTextColor={colors.neutral[500]}
           autoCapitalize="none"
           autoCorrect={false}
           textContentType="newPassword"
           secureTextEntry={typePassword === "password" ? true : false}
+          keyboardType={keyboardType}
+          multiline={type === "textarea" ? true : false}
+          numberOfLines={type === "textarea" ? 3 : 1}
+          style={type === "textarea" ? { textAlignVertical: "top" } : null}
           {...rest}
         />
         {isEyePassword &&
@@ -89,6 +95,6 @@ export function Input({
             </View>
           ))}
       </View>
-    </>
+    </View>
   );
 }
