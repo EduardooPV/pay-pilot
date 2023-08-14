@@ -1,9 +1,11 @@
 import { View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { FIREBASE_AUTH } from "../../FireBaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 import { useToast } from "react-native-toast-notifications";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { api } from "../lib/axios";
 
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
@@ -11,22 +13,24 @@ import { Input } from "../components/Input";
 export default function SignUp() {
   const toast = useToast();
   const { navigate } = useNavigation();
+  const auth = FIREBASE_AUTH;
 
   async function createUser(email: string, password: string) {
     try {
-      const { data } = await api.post("/user", {
+      const response = await createUserWithEmailAndPassword(
+        auth,
         email,
-        password,
-      });
+        password
+      );
 
-      if (data.status === "Error") {
-        toast.show("E-mail já está em uso.", {
+      if (!response) {
+        toast.show("Houve algum problema.", {
           type: "danger",
           placement: "top",
         });
       }
 
-      if (!data.status) {
+      if (response) {
         toast.show("Usuário criado com sucesso!", {
           type: "success",
           placement: "top",
@@ -34,12 +38,11 @@ export default function SignUp() {
 
         navigate("welcome" as never);
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.show("Não foi possivel criar o usuário", {
         type: "warning",
         placement: "top",
       });
-      console.log(error);
     }
   }
 

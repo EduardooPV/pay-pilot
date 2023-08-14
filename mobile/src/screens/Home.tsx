@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { View, Text, ScrollView, Alert, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Alert,
+  StyleSheet,
+  Button,
+} from "react-native";
 
 import Welcome from "./Welcome";
 import { Loading } from "../components/Loading";
@@ -8,8 +15,11 @@ import SummaryUser from "../components/Summary";
 import Operations from "../components/Operations/";
 import Transaction from "../components/Transaction";
 
-import { UserAuth } from "../context/UserAuth";
 import { api } from "../lib/axios";
+import { FIREBASE_AUTH } from "../../FireBaseConfig";
+import { useNavigation } from "@react-navigation/native";
+import { UserAuth } from "../context/FireBaseAuth";
+import { useToast } from "react-native-toast-notifications";
 
 interface TransactionProps {
   title: string;
@@ -19,96 +29,116 @@ interface TransactionProps {
 }
 
 export default function Home() {
-  const { isAuthenticated, isLoading } = UserAuth();
-  const [loading, setLoading] = useState(true);
-  const [transactions, setTransactions] = useState<TransactionProps[]>([]);
+  // // const { isAuthenticated, isLoading } = UserAuth();
+  // const [loading, setLoading] = useState(true);
+  // const [transactions, setTransactions] = useState<TransactionProps[]>([]);
 
-  
+  // useEffect(() => {
+  //   async function getTransactions() {
+  //     try {
+  //       const response = await api.get("/transaction");
 
-  useEffect(() => {
-    async function getTransactions() {
-      try {
-        const response = await api.get("/transaction");
+  //       setTransactions(response.data);
 
-        setTransactions(response.data);
+  //       if (response.data.token) {
+  //         const response = await api.get("/transaction");
 
-        if (response.data.token) {
-          const response = await api.get("/transaction");
+  //         setTransactions(response.data);
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   getTransactions();
+  // }, []);
 
-          setTransactions(response.data);
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    getTransactions();
-  }, []);
+  // if (isLoading) {
+  //   return <Loading />;
+  // } else if (isAuthenticated) {
+  //   return (
+  //     <View className="flex-1 w-full px-4 pt-[50px] bg-background ">
+  //       <Header />
 
-  if (isLoading) {
-    return <Loading />;
-  } else if (isAuthenticated) {
-    return (
-      <View className="flex-1 w-full px-4 pt-[50px] bg-background ">
-        <Header />
+  //       <SummaryUser />
 
-        <SummaryUser />
+  //       <Operations />
 
-        <Operations />
+  //       <View className="mt-10 mb-3 flex-row justify-between">
+  //         <Text className="text-caption leading-caption text-neutral-400 mb-3">
+  //           Ultimas transações
+  //         </Text>
 
-        <View className="mt-10 mb-3 flex-row justify-between">
-          <Text className="text-caption leading-caption text-neutral-400 mb-3">
-            Ultimas transações
-          </Text>
+  //         <Text
+  //           className="text-caption underline text-primary300"
+  //           onPress={() => Alert.alert("Página em construção")}
+  //         >
+  //           Ver todas
+  //         </Text>
+  //       </View>
 
-          <Text
-            className="text-caption underline text-primary300"
-            onPress={() => Alert.alert("Página em construção")}
-          >
-            Ver todas
-          </Text>
-        </View>
+  //       <ScrollView
+  //         className="w-full space-y-2 bg-white rounded-lg"
+  //         style={styles.shadow}
+  //       >
+  //         {loading ? (
+  //           <View className="mt-10 bg-red-500 flex-1">
+  //             <Loading background="#FFF" />
+  //           </View>
+  //         ) : transactions.length > 0 ? (
+  //           transactions.map(
+  //             (transaction) =>
+  //               transaction.title &&
+  //               transaction.value && (
+  //                 <Transaction
+  //                   key={transaction.created_at}
+  //                   title={transaction.title}
+  //                   value={transaction.value}
+  //                   createdAt={transaction.created_at}
+  //                   type={transaction.type}
+  //                 />
+  //               )
+  //           )
+  //         ) : (
+  //           <View>
+  //             <Text className="text-center mt-8 text-caption text-neutral-500">
+  //               Você ainda não possuí transações...
+  //             </Text>
 
-        <ScrollView
-          className="w-full space-y-2 bg-white rounded-lg"
-          style={styles.shadow}
-        >
-          {loading ? (
-            <View className="mt-10 bg-red-500 flex-1">
-              <Loading background="#FFF" />
-            </View>
-          ) : transactions.length > 0 ? (
-            transactions.map(
-              (transaction) =>
-                transaction.title &&
-                transaction.value && (
-                  <Transaction
-                    key={transaction.created_at}
-                    title={transaction.title}
-                    value={transaction.value}
-                    createdAt={transaction.created_at}
-                    type={transaction.type}
-                  />
-                )
-            )
-          ) : (
-            <View>
-              <Text className="text-center mt-8 text-caption text-neutral-500">
-                Você ainda não possuí transações...
-              </Text>
+  //             <Text className="text-center mt-4 text-paragraph1 text-neutral-500">
+  //               {"=("}
+  //             </Text>
+  //           </View>
+  //         )}
+  //       </ScrollView>
+  //     </View>
+  //   );
+  // } else {
+  //   return <Welcome />;
+  // }
 
-              <Text className="text-center mt-4 text-paragraph1 text-neutral-500">
-                {"=("}
-              </Text>
-            </View>
-          )}
-        </ScrollView>
-      </View>
-    );
-  } else {
-    return <Welcome />;
-  }
+  const toast = useToast();
+  const { navigate } = useNavigation();
+  const { user } = UserAuth();
+
+  const auth = FIREBASE_AUTH;
+  const signOut = async () => {
+    auth.signOut();
+
+    toast.show("Você saiu da sua conta com sucesso", {
+      type: "warning",
+      placement: "top",
+    });
+    navigate("welcome" as never);
+  };
+
+  return (
+    <View className="pt-10">
+      {/* <Button title="Sair" onPress={signOut} /> */}
+      <Text>{user?.email}</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

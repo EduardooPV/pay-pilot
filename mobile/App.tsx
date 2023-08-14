@@ -2,7 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import { Routes } from "./src/routes";
 import { Loading } from "./src/components/Loading";
 import { ToastProvider } from "react-native-toast-notifications";
-import { UserAuthProvider } from "./src/context/UserAuth";
+import { UserAuthProvider } from "./src/context/FireBaseAuth";
+import { SummaryUser } from "./src/context/Summary";
 
 import {
   useFonts,
@@ -10,7 +11,6 @@ import {
   Roboto_700Bold,
   Roboto_900Black,
 } from "@expo-google-fonts/roboto";
-import { SummaryUser } from "./src/context/Summary";
 
 export default function App() {
   const [fontsLoaded] = useFonts({

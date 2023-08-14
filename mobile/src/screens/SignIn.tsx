@@ -1,43 +1,37 @@
 import { View, Text } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FIREBASE_AUTH } from "../../FireBaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 import { useToast } from "react-native-toast-notifications";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { api } from "../lib/axios";
 
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 
 export default function SignIn() {
   const toast = useToast();
-
   const { navigate } = useNavigation();
+  const auth = FIREBASE_AUTH;
 
   async function loginUser(email: string, password: string) {
     try {
-      const { data } = await api.post("/user/login", {
-        email,
-        password,
-      });
+      const response = await signInWithEmailAndPassword(auth, email, password);
 
-      if (!data.token) {
+      if (response.user) {
+        const userToken = await response.user.getIdToken();
+        await AsyncStorage.setItem("userToken", userToken);
+        navigate("home" as never);
+      }
+
+      if (!response.user) {
         toast.show("E-mail ou senha errado, tente novamente", {
           type: "danger",
           placement: "top",
         });
-
-        return;
       }
-
-      await AsyncStorage.setItem("refresh_token", data.refreshToken.id);
-      await AsyncStorage.setItem("token", data.token);
-      await AsyncStorage.setItem("user_id", data.refreshToken.user_id);
-      await AsyncStorage.setItem("user_email", email);
-      await AsyncStorage.setItem("user_password", password);
-
-      navigate("home" as never);
     } catch (error) {
       toast.show("Não foi possivel entrar", {
         type: "warning",

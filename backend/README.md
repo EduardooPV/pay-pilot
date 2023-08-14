@@ -1,0 +1,1 @@
+# Backend foi descontinuado e alterado pelo FireBase.
