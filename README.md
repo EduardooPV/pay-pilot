@@ -91,6 +91,8 @@ _Todas as informações detalhadas [AQUI](https://www.figma.com/file/dJh51vXqLjF
 - [JsonWebToken](https://github.com/auth0/node-jsonwebtoken) geração e validação de token jwt;
 - [Bcryptjs](https://github.com/dcodeIO/bcrypt.js) encriptação das senhas dos usuários;
 
+## Banco de dados foi descontinuado e trocado pelo FireBase
+
 O banco de dados foi criado utilizando o **Prisma.io**, e então foram criados três tabelas:
 
 1. `User`:
@@ -151,6 +153,18 @@ _Todas as informações detalhadas [AQUI](https://www.figma.com/file/dJh51vXqLjF
 - [Yup](https://www.npmjs.com/package/yup) validação dos dados;
 - [Async Storage](https://reactnative.dev/docs/asyncstorage) gravar token localmente;
 - [Toast](https://www.npmjs.com/package/react-native-toast-notifications) modal de alertas para o usuário;
+
+Arquivo .env exemplo:
+```
+# Firebase
+API_KEY=
+AUTH_DOMAIN=
+PROJECT_ID=
+STORAGE_BUCKET=
+MESSAGING_SENDER_ID=
+APP_ID=
+MEASUREMENT_ID=
+```
 
 No React Native, tivemos algumas telas, como: 
 - **Introdução**

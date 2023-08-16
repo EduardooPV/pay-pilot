@@ -1,17 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { Auth, getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDkBZf23T3wVp7TvCJZSCTKhlQXLbRNxGg",
-  authDomain: "pay-pilot.firebaseapp.com",
-  projectId: "pay-pilot",
-  storageBucket: "pay-pilot.appspot.com",
-  messagingSenderId: "487140739070",
-  appId: "1:487140739070:web:0e035865de54273eda22af",
-  measurementId: "G-SLCJ1BL17W",
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MEASUREMENT_ID,
 };
 
 export const FIREBASE_APP = initializeApp(firebaseConfig);
 export const FIREBASE_AUTH: Auth = getAuth(FIREBASE_APP);
-export const FIREBASE_DB = getFirestore(FIREBASE_APP);
+export const FIREBASE_DB = getDatabase(FIREBASE_APP);
