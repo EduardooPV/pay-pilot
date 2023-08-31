@@ -1,27 +1,10 @@
 import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 
 import SettingsImage from "../assets/settings.svg";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
+import { UserAuth } from "../context/FireBaseAuth";
 
 export default function Header() {
-  const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    const getEmail = async () => {
-      try {
-        const userEmail = await AsyncStorage.getItem("user_email");
-
-        if (userEmail) {
-          setEmail(userEmail);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getEmail();
-  }, []);
+  const { user } = UserAuth();
 
   return (
     <View className="flex flex-row items-center justify-between mb-10">
@@ -38,7 +21,9 @@ export default function Header() {
         <View>
           <Text className="text-paragraph2 leading-paragraph2 text-primary300">
             Olá,{" "}
-            <Text className="font-bold">{email ? email : "novamente!"}</Text>
+            <Text className="font-bold">
+              {user?.email ? user?.email : "novamente!"}
+            </Text>
           </Text>
           <Text className="text-caption leading-caption text-primary300">
             Seja bem vindo!

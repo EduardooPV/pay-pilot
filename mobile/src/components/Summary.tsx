@@ -14,6 +14,8 @@ export default function SummaryUser() {
   const totalExpense = summary ? formatValue(summary.totalExpense) : "";
   const totalIncome = summary ? formatValue(summary.totalIncome) : "";
 
+  console.log(summary, loading)
+
   return (
     <View>
       <Text className="text-caption leading-caption text-neutral-400 mb-3">
@@ -30,7 +32,7 @@ export default function SummaryUser() {
 
           {loading ? (
             <View className="flex-1 p-5">
-              <Loading color="#FFF" />
+              <Loading color="#FFF" /> 
             </View>
           ) : (
             <Text className="text-h4 leading-h4 font-bold text-white">

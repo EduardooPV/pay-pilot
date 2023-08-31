@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { FIREBASE_AUTH } from "../../FireBaseConfig";
 
 interface UserAuthProps {

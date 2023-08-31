@@ -10,11 +10,14 @@ import Modal from "react-native-modal";
 
 import ExpenseImage from "../../assets/expensebutton.svg";
 import CloseImage from "../../assets/close.svg";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { api } from "../../lib/axios";
+import { UserAuth } from "../../context/FireBaseAuth";
+import { FIREBASE_DB } from "../../../FireBaseConfig";
+import { ref, set } from "firebase/database";
 
 export default function Expense() {
   const toast = useToast();
+  const { user } = UserAuth();
+  const db = FIREBASE_DB;
 
   const [isModalVisible, setModalVisible] = useState(false);
 
@@ -45,23 +48,28 @@ export default function Expense() {
               description: "",
             }}
             onSubmit={async (values) => {
-              const user_id = await AsyncStorage.getItem("user_id");
+              // set(ref(db, "users/" + user?.uid), {
+              //   email: user?.email,
+              // })
+              //   .then(() => {
+              //     // Dados:
+              //     // title: values.title,
+              //     // value: Number(values.value),
+              //     // description: values.description,
+              //     // type: "Income",
+              //     // user_id: user_id,
 
-              const response = await api.post("/transaction", {
-                title: values.title,
-                value: Number(values.value),
-                description: values.description,
-                type: "Income",
-                user_id: user_id,
-              });
+              //     setModalVisible(false);
+              //     toast.show("Saída criada com sucesso!", {
+              //       type: "success",
+              //       placement: "top",
+              //     });
 
-              if (response.status === 200) {
-                setModalVisible(false);
-                toast.show("Saída criada com sucesso!", {
-                  type: "success",
-                  placement: "top",
-                });
-              }
+              //     alert("Data updated");
+              //   })
+              //   .catch((error) => {
+              //     alert(error);
+              //   });
             }}
             validationSchema={yup.object().shape({
               title: yup

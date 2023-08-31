@@ -6,7 +6,16 @@ import React, {
   useState,
 } from "react";
 
-import { api } from "../lib/axios";
+import { UserAuth } from "./FireBaseAuth";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
+import { FIREBASE_DB } from "../../FireBaseConfig";
 
 interface SummaryUserProvider {
   children: ReactNode;
@@ -29,21 +38,31 @@ const SummaryUserContext = createContext<SummaryUserContextProps>({
 });
 
 export function SummaryUser({ children }: SummaryUserProvider) {
+  const { user } = UserAuth();
+  const db = FIREBASE_DB;
   const [loading, setLoading] = useState(true);
   const [summary, setSummary] = useState<SummaryUserProps>();
 
   useEffect(() => {
     async function getSummary() {
       try {
-        const response = await api.get("/transaction/summary");
+        if (user?.email) {
+          const docRef = doc(db, "users", user?.email);
+          const docSnap = await getDoc(docRef);
 
-        if (response) {
-          setSummary(response.data);
+          if (docSnap.exists()) {
+            setSummary({
+              totalIncome: Number(docSnap.data().income),
+              totalExpense: Number(docSnap.data().expensive),
+              total: Number(docSnap.data().income - docSnap.data().expensive),
+            });
+            setLoading(false);
+          } else {
+            console.log("No such document!");
+          }
         }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
+      } catch (e) {
+        console.error("Error adding document: ", e);
       }
     }
 

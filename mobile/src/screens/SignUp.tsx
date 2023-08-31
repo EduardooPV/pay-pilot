@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { FIREBASE_AUTH } from "../../FireBaseConfig";
+import { FIREBASE_AUTH, FIREBASE_DB } from "../../FireBaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import { useToast } from "react-native-toast-notifications";
@@ -9,11 +9,16 @@ import * as yup from "yup";
 
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
+import { ref, set } from "firebase/database";
+import { UserAuth } from "../context/FireBaseAuth";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 
 export default function SignUp() {
   const toast = useToast();
   const { navigate } = useNavigation();
   const auth = FIREBASE_AUTH;
+  const db = FIREBASE_DB;
+  const { user } = UserAuth();
 
   async function createUser(email: string, password: string) {
     try {
@@ -31,13 +36,26 @@ export default function SignUp() {
       }
 
       if (response) {
+        try {
+          const userRef = collection(db, "users");
+
+          await setDoc(doc(userRef, email), {
+            email: email,
+            income: 0,
+            expensive: 0,
+          });
+          console.error("Document written with ID: ", email);
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
+
         toast.show("Usuário criado com sucesso!", {
           type: "success",
           placement: "top",
         });
-
-        navigate("welcome" as never);
       }
+
+      navigate("welcome" as never);
     } catch (error: any) {
       toast.show("Não foi possivel criar o usuário", {
         type: "warning",
@@ -62,7 +80,6 @@ export default function SignUp() {
         }}
         onSubmit={(values) => {
           createUser(values.email, values.password);
-          "welcome" as never;
         }}
         validationSchema={yup.object().shape({
           email: yup
